@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">FP-Growth Transaction Input</h1>
+<form action="{{ url_for('result') }}" method="post">
+    <label for="min_support" class="block text-sm font-medium text-gray-700">Minimum Support:</label>
+    <input type="number" step="0.01" name="min_support" id="min_support" value="0.6" class="border rounded p-2 mb-4 w-full">
+    <table class="table-auto w-full mb-4">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Data Transaksi (pisahkan dengan koma)</th>
+            </tr>
+        </thead>
+        <tbody id="transaction_table">
+            {% for i in range(3) %}
+            <tr>
+                <td class="border px-4 py-2">{{ i + 1 }}</td>
+                <td class="border px-4 py-2"><input type="text" name="transaction" class="border rounded p-2 w-full"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="button" onclick="addRow()" class="bg-blue-500 text-white px-4 py-2 rounded">Tambah Data</button>
+    <button type="button" onclick="removeRow()" class="bg-red-500 text-white px-4 py-2 rounded">Kurangi Data</button>
+    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Proses</button>
+</form>
+<script>
+    function addRow() {
+        const table = document.getElementById('transaction_table');
+        const rowCount = table.rows.length;
+        const row = table.insertRow(rowCount);
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        cell1.innerHTML = rowCount + 1;
+        cell2.innerHTML = '<input type="text" name="transaction" class="border rounded p-2 w-full">';
+    }
+
+    function removeRow() {
+        const table = document.getElementById('transaction_table');
+        if (table.rows.length > 1) {
+            table.deleteRow(table.rows.length - 1);
+        }
+    }
+</script>
+{% endblock %}

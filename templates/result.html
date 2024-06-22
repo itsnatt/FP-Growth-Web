@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">FP-Growth Results</h1>
+<table class="table-auto w-full mb-4">
+    <thead>
+        <tr>
+            <th class="border px-4 py-2">No</th>
+            <th class="border px-4 py-2">Data Transaksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaction in transactions %}
+        <tr>
+            <td class="border px-4 py-2">{{ loop.index }}</td>
+            <td class="border px-4 py-2">{{ transaction }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<table class="table-auto w-full mb-4">
+    <thead>
+        <tr>
+            <th class="border px-4 py-2">No</th>
+            <th class="border px-4 py-2">Support</th>
+            <th class="border px-4 py-2">Itemset</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in frequent_itemsets.itertuples() %}
+        <tr>
+            <td class="border px-4 py-2">{{ loop.index }}</td>
+            <td class="border px-4 py-2">{{ row.support }}</td>
+            <td class="border px-4 py-2">{{ row.itemsets }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('index') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Kembali ke Home</a>
+{% endblock %}
